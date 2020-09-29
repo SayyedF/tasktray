@@ -1,0 +1,34 @@
+#leadTaskLabel{
+    padding-left: 180px;
+}
+
+.heading {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.6875rem;
+    font-family: Poppins, "Open Sans", arial;
+    color: gray;
+}
+
+.dashboard-mgr {
+
+
+
+}
+
+#sidelogo {
+
+}
+
+@media only screen and (max-width: 600px) {
+  #leadTaskLabel{
+      padding-left: 0px;
+  }
+
+  .heading {
+      font-size: 17px;
+      font-family: Poppins, "Open Sans", arial;
+      color: gray;
+  }
+}
+
