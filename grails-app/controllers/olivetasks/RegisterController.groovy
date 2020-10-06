@@ -21,13 +21,13 @@ class RegisterController {
 
     def index() {
 
-        /*if(Employee.count() > 0) {
+        if(Employee.count() > 0) {
             flash.message = "You are already registered! Please Login"
             redirect controller: "login", action: "auth"
             return
-        }*/
+        }
 
-        if(Employee.count==0) {
+        /*if(Employee.count==0) {
             initUsers()
             flash.message = "You have registered successfully. Please login."
             redirect controller: "login", action: "auth"
@@ -37,7 +37,7 @@ class RegisterController {
             flash.message = "App is already initialised! Please Login"
             redirect controller: "login", action: "auth"
             return 
-        }
+        }*/
     }
 
     @Secured('permitAll')
