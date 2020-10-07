@@ -33,13 +33,18 @@ configurations {
 }
 
 dependencies {
-    provided "org.springframework.boot:spring-boot-starter-tomcat"
+    //--------------------Heroku related-------------------------
+    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
+
+    //-----------------------------------------------------------
+
+    provided "org.springframework.boot:spring-boot-starter-tomcat"   // if tomcat server is provided
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
     compile "org.springframework.boot:spring-boot-starter-actuator"
-    //compile "org.springframework.boot:spring-boot-starter-tomcat"
+    //compile "org.springframework.boot:spring-boot-starter-tomcat"   //For deployement
     compile "org.grails:grails-web-boot"
     compile "org.grails:grails-logging"
     compile "org.grails:grails-plugin-rest"
@@ -67,6 +72,8 @@ dependencies {
     runtime "org.apache.tomcat:tomcat-jdbc"
     runtime "javax.xml.bind:jaxb-api:2.3.1"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:3.2.4"
+
+// ****** Commented out to avoid running tests while deploying on Heroku ******
 //    testCompile "io.micronaut:micronaut-inject-groovy"
 //    testCompile "org.grails:grails-gorm-testing-support"
 //    testCompile "org.mockito:mockito-core"
@@ -113,4 +120,26 @@ tasks.withType(Test) {
 assets {
     minifyJs = true
     minifyCss = true
+}
+
+//-------------------- For Heroku ----------------------
+task stage() {
+    dependsOn clean, war
+}
+war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$buildDir/server"
+    from(configurations.compile) {
+        include "webapp-runner*"
+    }
+}
+
+stage.dependsOn(copyToLib)
+
+tasks.stage.doLast() {
+    delete fileTree(dir: "build/distributions")
+    delete fileTree(dir: "build/assetCompile")
+    delete fileTree(dir: "build/distributions")
+    delete fileTree(dir: "build/libs", exclude: "*.war")
 }
