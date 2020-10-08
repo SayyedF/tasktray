@@ -7,6 +7,7 @@ class TaskReminderService {
 
     def remind() {
         if(SendMailConfig.count() == 0) {
+            println('Email Account for sending emails is not configured')
             return
         }
 
