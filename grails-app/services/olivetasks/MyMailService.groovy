@@ -156,6 +156,78 @@ class MyMailService {
         return html
     }
 
+    def pendingTaskHtml(Employee employee, List<Task> tasks) {
+        def html
+        html = '<html><head>\n' +
+                '<style>\n' +
+                '#customers {\n' +
+                '  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;\n' +
+                '  border-collapse: collapse;\n' +
+                '  width: 100%;\n' +
+                '}\n' +
+                '\n' +
+                '#customers td, #customers th {\n' +
+                '  border: 1px solid #ddd;\n' +
+                '  padding: 8px;\n' +
+                '}\n' +
+                '\n' +
+                '#customers tr:nth-child(even){background-color: #f2f2f2;}\n' +
+                '\n' +
+                '#customers tr:hover {background-color: #ddd;}\n' +
+                '\n' +
+                '#customers th {\n' +
+                '  padding-top: 12px;\n' +
+                '  padding-bottom: 12px;\n' +
+                '  text-align: left;\n' +
+                '  background-color: #4CAF50;\n' +
+                '  color: white;\n' +
+                '}\n' +
+                '</style>\n' +
+                '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">' +
+                '</head>' + '<body>'
+        html += '<div class="card shadow mb-4">'
+
+        html += '<div class="card-header py-3">'
+        html += '<h4 class="m-0 font-weight-bold text-primary">'
+        html += 'Hi, ' + employee.fullname + '!</h4>' +
+                '<h4>These tasks are pending!</h4><br>';
+        html += '</div>';
+
+        html += '<div class="card-body">';
+        html += '<div class="myclass">';
+        html += '<div id="customers" class="content scaffold-list" role="main">';
+
+        for(int i=0; i<tasks.size(); i++) {
+            html += '<br>'
+            html += '<table>';
+            html += '<thead>';
+            html += '<tr>';
+            html += '<th>Task</th> <th>' + tasks.get(i).taskName + '</th>';
+            html += '</tr></thead><tbody>';
+            html += '<tr>'
+            html += '<td>Description</td>';
+            html += '<td>' + tasks.get(i).description + '</td>';
+            html += '</tr>'
+            html += '<tr>'
+            html += '<td>Creation Date</td>';
+            html += '<td>' + tasks.get(i).creationDate + '</td>';
+            html += '</tr>'
+            html += '<tr>'
+            html += '<td>Deadline</td>';
+            html += '<td>' + tasks.get(i).deadline + '</td>';
+            html += '</tr>'
+            html += '</tbody></table>'
+        }
+
+        html += '</div></div></div></div>' +
+                '<br><h4>Regards,</h4>' +
+                '<h4>Admin</h4>' +
+                '<h4>Olive Software Solution</h4>' +
+                '</body></html>';
+
+        return html
+    }
+
     public static void sendEmail(String to, String subject, String content, List<String> ccList) {
 
         String username //= "no-reply@olivesofts.com";//"sayyedfj15.comp@coep.ac.in";//change accordingly
