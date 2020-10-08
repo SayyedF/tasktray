@@ -5,6 +5,7 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class TaskReminderService {
 
+    //remind employees their pending tasks by email
     def remind() {
         if(SendMailConfig.count() == 0) {
             println('Email Account for sending emails is not configured')
@@ -14,10 +15,16 @@ class TaskReminderService {
         List<Employee> employees = Employee.list();
         for(int i=0; i<employees.size(); i++) {
             Employee employee = employees.get(i)
-            def pendingTasks = findPendingTasks(employee)
-            if(pendingTasks != null) {
+            List<Task> pendingTasks = findPendingTasks(employee)
+            if(pendingTasks?.size() > 0) {
+                def subject
+                if(pendingTasks.size() == 1)
+                    subject = 'Your Pending Task'
+                else
+                    subject = 'Your Pending Tasks'
+
                 def html = new MyMailService().pendingTaskHtml(employee, pendingTasks)
-                MyMailService.sendEmail(employee.email,'Your Pending Tasks',html, null)
+                MyMailService.sendEmail(employee.email,subject,html, null)
             }
         }
     }

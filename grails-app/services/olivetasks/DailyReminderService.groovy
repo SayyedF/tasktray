@@ -11,7 +11,8 @@ class DailyReminderService {
     static lazyInit = false
     def taskReminderService
 
-    @Scheduled(cron = "0 30 9 1/1 * ?")  //Everyday at 9:30 AM
+    //TODO: Change cron dynamically according to the time set by the User
+    @Scheduled(cron = "0 30 9 * * ?")  //Everyday at 9:30 AM
     void execute() {
         log.info "DailyMailReminder Service running"
         taskReminderService.remind()

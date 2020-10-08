@@ -5,11 +5,11 @@ class BootStrap {
     def init = { servletContext ->
 
         new Company('Olive Software Solution','olive-white.png').save()
-      //  initUsers()
+
+        //initUsers()
     }
 
-/*
-    @Transactional
+/*    @Transactional
     def initUsers () {
 
         new EmailConfig('olivedhule@gmail.com','eloxzoqdhjwhpnzp','imap.gmail.com','993').save()
@@ -49,7 +49,7 @@ class BootStrap {
         def user2 = new Employee('sfjilani','sfjilani','Fakhruddin Sayyed','sfjilani5dec@gmail.com')
         def user3 = new Employee('omair','omair','Omair Sayyed','sm.7omair@gmail.com')
         def user4 = new Employee('aqib','aqib','Aqib Shaikh','aquibsorcl@gmail.com')
-        def user5 = new Employee('noman','noman','Noman Shaikh','namirza333@gmail.com')
+        def user5 = new Employee('noman','noman','Nauman Shaikh','namirza333@gmail.com')
         def user6 = new Employee('azim','azim','Azim Shaikh','ajimsk00@gmail.com')
         def user7 = new Employee('saad','saad','Saad Shaikh','saadkha77n@gmail.com')
         def user8 = new Employee('saquib','saquib','Saquib Shaikh','saquibg8@gmail.com')
@@ -105,8 +105,8 @@ class BootStrap {
             it.flush()
             it.clear()
         }
-    }
-*/
+    }*/
+
     def destroy = {
     }
 }

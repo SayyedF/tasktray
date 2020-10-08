@@ -3,7 +3,6 @@ package olivetasks
 import grails.gorm.transactions.Transactional
 
 import javax.mail.Message
-import javax.mail.MessagingException
 import javax.mail.PasswordAuthentication
 import javax.mail.Session
 import javax.mail.Transport
@@ -158,6 +157,13 @@ class MyMailService {
 
     def pendingTaskHtml(Employee employee, List<Task> tasks) {
         def html
+        def notice
+
+        if(tasks.size() == 1)
+            notice = 'This task is pending!'
+        else
+            notice = 'These tasks are pending!'
+
         html = '<html><head>\n' +
                 '<style>\n' +
                 '#customers {\n' +
@@ -190,7 +196,7 @@ class MyMailService {
         html += '<div class="card-header py-3">'
         html += '<h4 class="m-0 font-weight-bold text-primary">'
         html += 'Hi, ' + employee.fullname + '!</h4>' +
-                '<h4>These tasks are pending!</h4><br>';
+                '<h4>'+ notice +'</h4><br>';
         html += '</div>';
 
         html += '<div class="card-body">';
@@ -293,12 +299,13 @@ class MyMailService {
                 message.setContent(content, "text/html");
 
                 // Send message
-                System.out.println(Transport.send(message));
+                Transport.send(message);
 
-                System.out.println("Sent message successfully....");
+                System.out.println("Sent email "+ subject +" to " + to + " successfully....");
 
-            } catch (MessagingException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                //throw new RuntimeException(e);
+                println('Mail could not be sent: '+ e.printStackTrace());
             }
         }
         else {
