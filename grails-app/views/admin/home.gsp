@@ -176,6 +176,7 @@ $(document).ready(function(){
                     url:URL,
                     data: {deptId : deptId, typeId: typeId},
                     dataType: "json",
+                    type: "post",
                     success: function(resp){
                         console.log(resp);
                         var count = parseInt(resp.count);

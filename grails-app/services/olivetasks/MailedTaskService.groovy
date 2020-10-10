@@ -65,7 +65,29 @@ class MailedTaskService {
         String assigneeDept
         String employeeDept
 
-        return true
+        if (assignee.authorities.any { it.authority == "ROLE_ADMIN" }) {
+            return true
+        }
+        else if(assignee.authorities.any { it.authority == "ROLE_LEAD" }) {
+
+            if(assignee.department == employee.department && employee.authorities.any { it.authority == "ROLE_USER" }) {
+                return true
+            }
+        }
+        else if(assignee.authorities.any { it.authority == "ROLE_MANAGER" }) {
+
+            //TODO Manager of HeadDepartment can also assign tasks to employees of subDepartment
+            if(assignee.department == employee.department && employee.authorities.any { it.authority == "ROLE_USER" }) {
+                return true
+            }
+        }
+        else {
+            if(assignee.equals(employee)) {
+                return true
+            }
+        }
+
+        return false
     }
 
     def sample() {}

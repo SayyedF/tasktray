@@ -249,6 +249,7 @@
                     url:URL,
                     data: {},
                     dataType: "json",
+                    method: "post",
                     success: function(resp){
                         console.log(resp);
                         var html = '<div>';
@@ -272,6 +273,7 @@
                     url:URL,
                     data: {},
                     dataType: "json",
+                    method: "post",
                     success: function(resp){
                         console.log(resp);
                         var html = '<div>';
@@ -295,6 +297,7 @@
                     url:URL,
                     data: {},
                     dataType: "json",
+                    type: "post",
                     success: function(resp){
                         console.log(resp);
                         var html = '<div>';
