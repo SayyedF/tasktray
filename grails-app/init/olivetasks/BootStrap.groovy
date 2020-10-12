@@ -5,6 +5,7 @@ class BootStrap {
     def init = { servletContext ->
 
         new Company('Olive Software Solution','olive-white.png').save()
+        TimeZone.setDefault(TimeZone.getTimeZone("India/Mumbai"))
 
         //initUsers()
     }
